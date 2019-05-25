@@ -14,6 +14,7 @@
            ("C-f" . nil)         ;; forward-char
            ("C-v" . nil)         ;; scroll-up-command
            ("M-v" . nil)         ;; scroll-down-command
+           ("C-r" . nil)         ;; isearch-backward-regexp
            ;; with helm and many buffers these are useless:
            ;; next-buffer
            ("<XF86Forward>" . nil)

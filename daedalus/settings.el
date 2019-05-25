@@ -747,13 +747,14 @@
 ;; (add-hook 'helm-cleanup-hook #'*-popwin-help-mode-on)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; time zones
+;; helm time zones
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 (setq display-time-world-list '(("Europe/Berlin" "Berlin/Jena")
                                 ("America/New_York" "New York/Boston")
                                 ("Australia/Melbourne" "Melbourne")
                                 ("Pacific/Auckland" "Auckland")
+                                ("America/Los_Angeles" "Los Angeles")
                                 ("CET" "CET")
                                 ("GMT" "GMT")
                                 ("UTC" "UTC")))

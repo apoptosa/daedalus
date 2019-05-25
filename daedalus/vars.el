@@ -59,15 +59,18 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defconst dx-dir-snippets
-  (concat dx-dir-core "/snippets/")
+  (concat (file-name-as-directory dx-dir-core)
+          (file-name-as-directory "snippets"))
   "Location for code snippets.")
 
 (defconst dx-dir-backups
-  (expand-file-name (concat user-emacs-directory "backups"))
+  (expand-file-name
+   (concat user-emacs-directory (file-name-as-directory "backups")))
   "Location for backups.")
 
 (defconst dx-dir-autosaves
-  (expand-file-name (concat user-emacs-directory "autosaves"))
+  (expand-file-name
+   (concat user-emacs-directory (file-name-as-directory "autosaves")))
   "Location for autosaves.")
 
 

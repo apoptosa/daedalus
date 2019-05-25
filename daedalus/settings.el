@@ -71,6 +71,7 @@
     (make-directory dx-dir-autosaves t))
 
 (setq auto-save-file-name-transforms `((".*" ,dx-dir-autosaves t)))
+(setq auto-save-list-file-prefix dx-dir-autosaves)
 
 (setq
  make-backup-files t          ; backup on first save
@@ -86,9 +87,6 @@
  auto-save-timeout 20         ; number of seconds between saves
  create-lockfiles nil         ; do not create .#filename
  )
-
-(setq auto-save-list-file-prefix nil)
-
 
 
 ;; disable auto-save for sensitive minor modes

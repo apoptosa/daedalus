@@ -1,0 +1,35 @@
+# -*- mode: snippet -*-
+# name: Boilerplate for C++ and PPAP, Stroustrup
+# key: boilPPAP_
+# --
+/*
+  Compilation [avoid ABI error]:
+  g++ `(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))`.cpp -o `(file-name-nondirectory (file-name-sans-extension (buffer-file-name)))` -D_GLIBCXX_USE_CXX11_ABI=0
+*/
+
+/*
+   ,-*
+  (_) Created on `(format-time-string "<%a %b %d %Y> @ %H:%M:%S" (current-time))`
+
+
+  @author: $1
+  @function: $2
+*/
+
+#include<iostream>
+#include<string>
+#include<vector>
+#include<algorithm>
+#include<cmath>
+using namespace std;
+
+int main()
+{
+  $0
+
+  return 0;
+}
+
+//
+// :D
+//

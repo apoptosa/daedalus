@@ -22,6 +22,10 @@ _data
 *.gp
 *fuse_hidden*
 
+# temporary files
+*.tmp
+
+
 # tilde backup files
 
 *~

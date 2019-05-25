@@ -1,0 +1,116 @@
+Daedalus info:
+
+* General key-bindings [kbd]
+  ** [<f1>] selective-display
+    Toggle; Depth controlled by point location.
+  ** [shift-direction arrow] navigation switch buffer
+  ** [M-number] navigation switch to buffer
+  ** [C-x +] Adjust window geometry
+  ** [C-c e], [C-=] expand-region
+  ** [C-c c] contract-region
+  ** [C-c a] ansi-term
+  ** [c-x c-s] save
+  ** [c-x c-c] exit
+  ** [M-!] execute shell command
+  ** [C-M-s] isearch-forward
+  ** [C-\] dx-fun-input-methods-cycler: :cycle between input methods 
+      "latin-1-prefix": Use "o for ö
+      "TeX": Use \lambda for λ
+  ** ["C-v q"] keyfreq-show
+    Show key frequency statistics
+* [kbd] dired
+  ** ["m"] mark
+  ** ["u"] unmark
+  ** ["U"] unmark all
+  ** ["+"] add folder
+  ** ["g"] refresh listing
+  ** ["i"] insert subdirectory listing
+  ** [";"] remove subdirectory listing
+  ** ["("] show details
+  ** ["e"] open in external
+  ** ["C-x C-j"] dired-jump
+  ** ["C-M-u"] dired-up-directory
+  ** ["C-x C-q"] wdired-change-to-wdired-mode
+  ** ["l"] dired-up-directory
+  ** ["M-!"] async-shell-command
+* [kbd] Helm ["C-v -"]
+  ** ["C-c h"] helm-command-prefix
+  ** ["C-s"], ["C-x b"] helm-mini
+  ** ["C-`"], ["C-M-z"] helm-resume
+  ** ["C-v k"], ["M-y"] helm-show-kill-ring
+  ** ["C-v a"] helm-apropos
+  ** ["C-v m"] helm-man-woman
+  ** ["C-v g"] helm-google-suggest
+  ** ["C-v b"] helm-descbinds
+  ** ["C-v t"] helm-world-time
+  ** ["C-v SPC"] helm-all-mark-rings
+  ** ["C-v i"], ["C-x C-i"] helm-semantic-or-imenu
+  ** ["C-v p"], ["C-x C-d"] helm-browse-project
+  ** ["C-z"], ["M-i"] helm-swoop
+  ** ["C-S-z"], ["C-M-i"] helm-multi-swoop
+  ** ["M-I"] helm-swoop-back-to-last-point
+  ** ["C-c C-o"], ["C-x C-o"] helm-occur
+  ** ["C-v g"] helm-do-ag
+  ** ["C-v r"] helm-bookmarks
+  Note that this information can also be accessed from helm-mini
+  ** ["C-v l"] helm-locate
+  ** ["C-v o"] helm-top
+  ** ["C-c h g"] helm-do-grep
+  ** ["C-v y"] helm-yas-complete
+  ** ["C-v w"] helm-surfraw
+  ** ["C-v x"] helm-regex
+* [kbd] Helm-projectile ["C-f -"]
+  ** ["C-f p"] helm-projectile
+  ** ["C-f f"] helm-projectile-find-file
+  ** ["C-f p"] helm-projectile-fine-file-in-known-projects
+  ** ["C-f s"] helm-projectile-switch-projectile
+  ** ["C-f a"] helm-projectile-ag
+  ** ["C-f z"] helm-multi-swoop-projectile
+* [kbd] multiple-cursors
+  ** ["C-S-c C-S-c"] Given active region spanning multiple lns add cursors
+  ** ["C->"] mark next selection like this
+  ** ["C-<"] mark previous selection like this
+  ** ["C-S->"] add cursor on next line
+  ** ["C-S-<"] add cursor on next line
+  ** ["C-c C->"] mark all like selection
+* [kbd] Buffer navigation and manipulation
+  ** ["C-,"] highlight-symbol-previous
+  ** ["C-."] highlight-symbol-next
+  ** ["C-M-n"], ["C-M-p"] jump to matching brace
+  ** ["C-M-k"] kill following symbol
+  ** ["C-M-n"] jump to matching parenthesis
+  ** ["C-M-p"] jump to matching parenthesis
+
+* [kbd] "C-h" rebinding
+  New prefix on "C-v z"
+
+
+* TODO:
+[?] ansi-term shackle to popwin
+projectile and helm-projectile - diminish
+
+compile inferior modes
+
+Dired function providing file information on object select [y]
+
+dash for documentation?
+
+org-mode
+EMAIL
+SAURON
+how this all could be interfaced with dokuwiki
+
+;; Push describe commands to deeper prefix
+
+* Learn:
+Magit
+Projectile
+Dired
+
+* Generic information
+  ** Git:
+  *** Initialise new repo:
+  In empty folder: git init
+  *** Change default user / email at repo level:
+  git config user.name "John Doe"
+  git config user.email "john@doe.org"

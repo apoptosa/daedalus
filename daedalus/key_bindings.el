@@ -143,6 +143,14 @@
 (global-set-key (kbd "C-x M-o") 'helm-occur)
 
 
+(bind-keys :map helm-swoop-map
+           ("C-z e" . helm-swoop-edit)
+           ("C-z w" . helm-yank-selection))
+
+(bind-keys :map helm-multi-swoop-map
+           ("C-z e" . helm-multi-swoop-edit)
+           ("C-z w" . helm-yank-selection))
+
 ;; dired
 (bind-keys :map dired-mode-map
            ("i" . dired-subtree-insert)
@@ -256,6 +264,7 @@
 (global-set-key (kbd "C-v r") 'helm-bookmarks)
 (global-set-key (kbd "C-v t") 'helm-world-time)
 (global-set-key (kbd "C-v u") 'helm-google-suggest)
+(global-set-key (kbd "C-v v") 'magit)
 (global-set-key (kbd "C-v w") 'helm-surfraw)
 (global-set-key (kbd "C-v x") 'helm-regexp)
 (global-set-key (kbd "C-v y") 'helm-yas-complete)
@@ -282,6 +291,7 @@
   "C-v r" "bookmarks"
   "C-v t" "world-time"
   "C-v u" "google-suggest"
+  "C-v v" "magit"
   "C-v w" "surfraw"
   "C-v x" "regexp"
   "C-v y" "yas-complete"

@@ -129,6 +129,8 @@
 
 
     eyebrowse                ; window layout management
+
+    wolfram
     ))
 
 ;; Go ahead and install as required
@@ -252,6 +254,8 @@
 
 
 (require 'eyebrowse)
+
+(require 'wolfram)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -408,3 +412,5 @@ Version 2019-01-18"
 (let ((elapsed (float-time (time-subtract (current-time)
                                           dx-start-time))))
   (message "Daedalus core: Loaded in %.3fs" elapsed))
+
+

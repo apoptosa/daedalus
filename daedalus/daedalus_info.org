@@ -86,8 +86,7 @@ Daedalus info:
 
 
 * TODO:
-[?] ansi-term shackle to popwin
-projectile and helm-projectile - diminish
+Migrate to use-package
 
 compile inferior modes
 
@@ -99,6 +98,9 @@ org-mode
 EMAIL
 SAURON
 how this all could be interfaced with dokuwiki
+
+fix helm swoop edit popwin
+fix alphabetical ordering for which-key
 
 ;; Push describe commands to deeper prefix
 

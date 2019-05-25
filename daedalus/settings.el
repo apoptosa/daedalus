@@ -61,10 +61,16 @@
 ;; Retain more backups: https://www.emacswiki.org/emacs/BackupFiles
 ;; sx/questions/151945/how-do-i-control-how-emacs-makes-backup-files
 
-(defvar --backup-directory (concat user-emacs-directory "backups"))
-(if (not (file-exists-p --backup-directory))
-    (make-directory --backup-directory t))
-(setq backup-directory-alist `(("." . ,--backup-directory)))
+;; ensure backup directory exists and make use of it
+(if (not (file-exists-p dx-dir-backups))
+    (make-directory dx-dir-backups t))
+(setq backup-directory-alist `(("." . ,dx-dir-backups)))
+
+;; ensure autosave directory exists and make use of it
+(if (not (file-exists-p dx-dir-autosaves))
+    (make-directory dx-dir-autosaves t))
+
+(setq auto-save-file-name-transforms `((".*" ,dx-dir-autosaves t)))
 
 (setq
  make-backup-files t          ; backup on first save
@@ -76,9 +82,14 @@
  version-control t            ; number backups
  vc-make-backup-files t       ; backup version controlled files
  auto-save-default t          ; save every buffer visited
- auto-save-interval 200       ; number of keys-strokes between saves
+ auto-save-interval 2       ; number of keys-strokes between saves
  auto-save-timeout 20         ; number of seconds between saves
+ create-lockfiles nil         ; do not create .#filename
  )
+
+(setq auto-save-list-file-prefix nil)
+
+
 
 ;; disable auto-save for sensitive minor modes
 (setq auto-mode-alist
@@ -274,6 +285,12 @@
 ;;                         face lines-tail))
 ;; show trailing whitspace
 ;; (setq-default show-trailing-whitespace t)
+
+;; disable whitespace in some modes
+(setq whitespace-global-modes '(not org-mode
+                                    eshell-mode
+                                    shell-mode))
+
 (global-whitespace-mode 1)
 
 ;; Only show trailing whitespace in programming modes
@@ -860,6 +877,9 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; theme and initial layout
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; treat as safe
+(setq custom-safe-themes t)
 
 ;; Use Liberation Mono-9
 (add-to-list 'default-frame-alist

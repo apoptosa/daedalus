@@ -136,6 +136,7 @@
 
 ;; Hide dired
 (add-to-list 'ibuffer-never-show-predicates "^\\*dired")
+(add-to-list 'ibuffer-never-show-predicates "^\\*magit")
 
 ;; Nonexistent ignore
 (setq confirm-nonexistent-file-or-buffer nil)
@@ -1144,18 +1145,6 @@
 (setq magit-display-buffer-function (quote display-buffer))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;; git-gutter
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-;; to play nicely with linum
-
-;; (git-gutter:linum-setup)
-
-;; (global-git-gutter-mode +1)
-;; (setq git-gutter:always-show-separator 1)
-
-
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; term-mode
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
@@ -1226,8 +1215,6 @@ to an html file in `user-emacs-directory'."
 (eval-after-load "mode_sensitive" '(diminish 'sensitive-minor-mode "§"))
 (eval-after-load "abbrev" '(diminish 'abbrev-mode ""))
 (eval-after-load "eldoc" '(diminish 'eldoc-mode ""))
-
-(eval-after-load "git-gutter" '(diminish 'git-gutter-mode ""))
 
 ;; (add-hook 'dired-mode-hook (lambda () (diminish 'dired-omit-mode "ø")))
 ;;(eval-after-load "dired" '(diminish 'dired-omit-mode "ø"))

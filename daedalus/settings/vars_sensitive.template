@@ -1,0 +1,18 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  ,-*
+;; (_) Created on <Sat May 25 2019> @ 22:16:57
+;;
+;; @author: apoptosa
+;; @function: Various user-defined settings
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; emacs-specific
+(setq dx-var-sensitive-user-full-name "name"
+      dx-var-sensitive-user-mail-address "name@name.com")
+
+;; Wolfram API
+(setq dx-var-sensitive-wolfram-alpha-app-id "")
+
+;;
+;;  :D
+;;

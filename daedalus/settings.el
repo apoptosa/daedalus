@@ -1,11 +1,19 @@
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  ,-*
+;; (_) Created on <Sat May 25 2019> @ 22:29:03
+;;
+;; @author: apoptosa
+;; @function: Main settings function
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
 (provide 'settings)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Tweak general settings [see vars]                                         ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
-(setq user-full-name "apoptosa"
-      user-mail-address "apoptosa@gmail.com")
+(setq user-full-name dx-var-sensitive-user-full-name
+      user-mail-address dx-var-sensitive-user-mail-address)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Emacs behaviour
@@ -799,6 +807,7 @@
 ;; provide yasnippet in various modes
 (add-hook 'python-mode-hook #'yas-minor-mode)
 (add-hook 'c++-mode-hook #'yas-minor-mode)
+(add-hook 'emacs-lisp-mode-hook #'yas-minor-mode)
 
 ;; org-mode needs a fix
 (add-hook 'org-mode-hook #'yas-minor-mode)
@@ -1261,3 +1270,7 @@ to an html file in `user-emacs-directory'."
         ))
 
 (cyphejor-mode 1)
+
+;;
+;;  :D
+;;

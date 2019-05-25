@@ -7,6 +7,29 @@
   "Keep track of start time.")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Provide directories                                                       ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(defconst dx-dir-settings
+  (concat dx-dir-core
+          (file-name-as-directory "settings"))
+  "Location for user-specific settings.")
+
+(defconst dx-dir-snippets
+  (concat dx-dir-core
+          (file-name-as-directory "snippets"))
+  "Location for code snippets.")
+
+(defconst dx-dir-backups
+  (expand-file-name
+   (concat user-emacs-directory (file-name-as-directory "backups")))
+  "Location for backups.")
+
+(defconst dx-dir-autosaves
+  (expand-file-name
+   (concat user-emacs-directory (file-name-as-directory "autosaves")))
+  "Location for autosaves.")
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Provide all filenames                                                     ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (defconst dx-file-name-core
@@ -54,25 +77,10 @@
   (expand-file-name "mode_sensitive.el" dx-dir-core)
   "Provide a sensitive minor mode.")
 
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;;  Provide directories                                                       ;;
-;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-
-(defconst dx-dir-snippets
-  (concat (file-name-as-directory dx-dir-core)
-          (file-name-as-directory "snippets"))
-  "Location for code snippets.")
-
-(defconst dx-dir-backups
-  (expand-file-name
-   (concat user-emacs-directory (file-name-as-directory "backups")))
-  "Location for backups.")
-
-(defconst dx-dir-autosaves
-  (expand-file-name
-   (concat user-emacs-directory (file-name-as-directory "autosaves")))
-  "Location for autosaves.")
-
+;; user-specific settings
+(defconst dx-file-name-vars-sensitive
+  (expand-file-name "vars_sensitive.el" dx-dir-settings)
+  "User specific settings [some sensitive].")
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Emacs behaviour                                                           ;;

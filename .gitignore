@@ -33,3 +33,7 @@ _data
 # emacs backup
 \#*\#
 .\#*
+
+
+# do not stage personal settings
+vars_sensitive.el

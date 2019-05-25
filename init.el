@@ -8,8 +8,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Debug mode on - turn off once finished loading
-;; (setq debug-on-error t)
-;; (setq debug-on-quit t)
+(setq debug-on-error t)
+(setq debug-on-quit t)
 
 
 ;; During loading increase threshold for garbage collection
@@ -28,14 +28,19 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 (defconst dx-dir-core
-    (expand-file-name (concat user-emacs-directory "daedalus"))
-    "Full location for the Daedalus core and related files.")
+  (expand-file-name
+   (concat user-emacs-directory
+           (file-name-as-directory "daedalus")))
+  "Full location for the Daedalus core and related files.")
 
 (defconst dx-file-name-vars (expand-file-name "vars.el" dx-dir-core)
   "Central store of Daedalus variables.")
 
 (message "Daedalus: Loading variables")
 (load dx-file-name-vars)
+
+(message "Daedalus: Loading variables [sensitive]")
+(load dx-file-name-vars-sensitive)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Fire up the core                                                          ;;
@@ -80,7 +85,7 @@
 (message "Daedalus: Finalising")
 (load dx-file-name-finalise)
 
-;;(setq debug-on-error nil)
-;;(setq debug-on-quit nil)
+(setq debug-on-error nil)
+(setq debug-on-quit nil)
 
 

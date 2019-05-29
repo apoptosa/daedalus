@@ -32,6 +32,17 @@
            ("C-t" . nil)         ;; transpose-chars
            )
 
+(bind-keys :map global-map
+           ("<down-mouse-1>" . nil)
+           ("<down-mouse-2>" . nil)
+           ("<down-mouse-3>" . nil)
+           ("<mouse-1>" . nil)
+           ("<mouse-2>" . nil)
+           ("<mouse-3>" . nil)
+           ("<wheel-up>" . nil)
+           ("<wheel-down>" . nil)
+           )
+
 
 ;; Nuke all C-h commands
 (global-unset-key (kbd "C-h"))
@@ -359,7 +370,6 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 
-
 (defhydra hydra-controller (global-map "<menu>")
   ;;  "Controller for nested hydras."
   ("a" hydra-applications/body "applications" :exit t)
@@ -369,8 +379,10 @@
   ("p" hydra-project/body "project" :exit t)
   ("g" hydra-git-vc/body "git/version control" :exit t)
   ("c" hydra-compile/body "compile" :exit t)
+  ("w" hydra-window/body "window" :exit t)
   ("h" hydra-help/body "help/info" :exit q)
-  ("t" nil "exit" :exit t)
+  ("<f1>" helm-apropos "apropos" :exit q)
+  ("q" nil "exit" :exit t)
   )
 
 (defhydra hydra-applications ()
@@ -421,16 +433,22 @@
   ("q" nil "exit" :exit t)
   )
 
+(defhydra hydra-window ()
+  ;; ("0" eyebrowse-switch-to-window-config-0 "0-1")
+  ;; ("1" eyebrowse-switch-to-window-config-1 "0-1")
+  ("q" nil "exit" :exit t)
+  )
+
 
 ;; allow hydra to take over binding
 (global-set-key (kbd "<menu>") 'hydra-controller/body)
 
 ;; provide key-chord for hydra
-(setq key-chord-two-keys-delay 0.02)
+(setq key-chord-two-keys-delay 0.01)
 (key-chord-define-global "  " 'hydra-controller/body)
 
-(key-chord-define-global "ss" 'helm-swoop)
-
+;; (key-chord-define-global "ss" 'helm-swoop)
+(key-chord-define-global "bb" 'hydra-buffer/body)
 
 (let ((inhibit-message t))
   ;; Suppress spam

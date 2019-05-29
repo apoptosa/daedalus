@@ -91,7 +91,7 @@
  version-control t            ; number backups
  vc-make-backup-files t       ; backup version controlled files
  auto-save-default t          ; save every buffer visited
- auto-save-interval 2       ; number of keys-strokes between saves
+ auto-save-interval 200       ; number of keys-strokes between saves
  auto-save-timeout 20         ; number of seconds between saves
  create-lockfiles nil         ; do not create .#filename
  )
@@ -136,7 +136,6 @@
 
 ;; Hide dired
 (add-to-list 'ibuffer-never-show-predicates "^\\*dired")
-(add-to-list 'ibuffer-never-show-predicates "^\\*magit")
 
 ;; Nonexistent ignore
 (setq confirm-nonexistent-file-or-buffer nil)
@@ -699,6 +698,8 @@
         (magit-status-mode
          :height 0.4
          :position bottom)
+        (compilation-mode
+         :height 0.4)
         (magit-log-mode
          :height 0.4
          :position bottom)
@@ -1153,6 +1154,17 @@
     (after term-kill-buffer-on-exit activate)
   (kill-buffer))
 
+(defun dx-fun-enable-term-line-mode (&rest ignored)
+  (term-line-mode))
+
+(advice-add 'ansi-term :after #'dx-fun-enable-term-line-mode)
+(advice-add 'term :after #'dx-fun-enable-term-line-mode)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; wolfram
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq wolfram-alpha-app-id dx-var-sensitive-wolfram-alpha-app-id)
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; keyfreq
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -1261,3 +1273,54 @@ to an html file in `user-emacs-directory'."
 ;;
 ;;  :D
 ;;
+
+
+
+
+;; projectile nonsense
+
+;; (define-key projectile-mode-map (kbd "C-c p") 'projectile-command-map)
+
+
+;; (fringe-mode '(0 . 8))
+;; (setq flycheck-indication-mode 'right-fringe)
+
+
+;; ;; (define-fringe-bitmap 'flycheck-fringe-bitmap-ball
+;; ;;   (vector #b00000000
+;; ;;           #b00000000
+;; ;;           #b00000000
+;; ;;           #b00000000
+;; ;;           #b00000000
+;; ;;           #b00111000
+;; ;;           #b01111100
+;; ;;           #b11111110
+;; ;;           #b11111110
+;; ;;           #b01111100
+;; ;;           #b00111000
+;; ;;           #b00000000
+;; ;;           #b00000000
+;; ;;           #b00000000
+;; ;;           #b00000000
+;; ;;           #b00000000
+;; ;;           #b00000000))
+
+
+;; (define-fringe-bitmap 'flycheck-fringe-bitmap-ball
+;;   (vector
+;;    #b0011100
+;;    #b0111110
+;;    #b1111111
+;;    #b1111111
+;;    #b0111110
+;;    #b0011100
+;;    ))
+
+
+;; (flycheck-define-error-level 'error
+;;   :severity 100
+;;   :compilation-level 2
+;;   :overlay-category 'flycheck-error-overlay
+;;   :fringe-bitmap 'flycheck-fringe-bitmap-ball
+;;   :fringe-face 'flycheck-fringe-error
+;;   :error-list-face 'flycheck-error-list-error)

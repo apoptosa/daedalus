@@ -130,7 +130,14 @@
 
     eyebrowse                ; window layout management
 
+
     wolfram
+
+
+    key-chord
+    key-seq
+
+    hydra
     ))
 
 ;; Go ahead and install as required
@@ -256,6 +263,12 @@
 (require 'eyebrowse)
 
 (require 'wolfram)
+
+(require 'key-chord)
+(require 'key-seq)
+
+
+(require 'hydra)
 
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
@@ -407,6 +420,24 @@ Version 2019-01-18"
    (or column
        (unless selective-display
          (1+ (current-column))))))
+
+
+;; quality of life (spawn new buffer)
+(defun dx-fun-new-empty-buffer ()
+  "Create a new empty buffer.
+New buffer will be named “*scratch*” or “*scratch*<2>”, “*scratch*<3>”, etc.
+
+It returns the buffer (for elisp programing).
+
+URL `http://ergoemacs.org/emacs/emacs_new_empty_buffer.html'
+Version 2017-11-01"
+  (interactive)
+  (let (($buf (generate-new-buffer "*scratch*")))
+    (switch-to-buffer $buf)
+    (emacs-lisp-mode)
+    (setq buffer-offer-save t)
+    $buf
+    ))
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (let ((elapsed (float-time (time-subtract (current-time)

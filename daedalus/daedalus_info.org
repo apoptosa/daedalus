@@ -41,6 +41,7 @@ Daedalus info:
   ** ["C-v a"] helm-apropos
   ** ["C-v m"] helm-man-woman
   ** ["C-v g"] helm-google-suggest
+  ** ["C-v f"] helm-find-files
   ** ["C-v b"] helm-descbinds
   ** ["C-v t"] helm-world-time
   ** ["C-v SPC"] helm-all-mark-rings
@@ -80,12 +81,20 @@ Daedalus info:
   ** ["C-M-k"] kill following symbol
   ** ["C-M-n"] jump to matching parenthesis
   ** ["C-M-p"] jump to matching parenthesis
-
+* [kbd] ["C-b -"] buffer-centric
+  ** ["C-b b"] dx-fun-new-empty-buffer
+    New emacs-lisp-mode scratch buffer
 * [kbd] "C-h" rebinding
   New prefix on "C-v z"
 
 
 * TODO:
+Modal with SPC leader key might reduce some strain on the hands - especially
+with the current key-chord bindings ufff;
+key-chords vs. <menu>
+
+Have a look at how spacemacs is designed and emulate some parts of that
+
 Migrate to use-package
 
 compile inferior modes

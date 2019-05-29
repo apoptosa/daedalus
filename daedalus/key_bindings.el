@@ -2,6 +2,7 @@
 ;; Remove some bindings
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 (bind-keys :map global-map
+           ("<menu>" . nil)      ;; M-x
            ("C-z" . nil)         ;; suspend-frame
            ("C-x C-n" . nil)     ;; set-goal-column
            ("M-o" . nil)         ;; facemenu-keymap
@@ -28,6 +29,7 @@
            ("C-x C-p" . nil)     ;; mark-page
            ("C-x $" . nil)       ;; selective-display
            ("C-x C-z" . nil)     ;; suspend-frame
+           ("C-t" . nil)         ;; transpose-chars
            )
 
 
@@ -100,7 +102,7 @@
 (global-set-key (kbd "C-M-z") 'helm-resume)
 
 (global-set-key (kbd "M-x") 'helm-M-x)
-(global-set-key (kbd "C-x C-f") 'helm-find-files)
+;;(global-set-key (kbd "C-x C-f") 'helm-find-files)
 
 (global-set-key (kbd "M-y") 'helm-show-kill-ring)
 
@@ -126,10 +128,10 @@
 
 
 ;; Move up and down like isearch
-(define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
-(define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
-(define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
-(define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
+;; (define-key helm-swoop-map (kbd "C-r") 'helm-previous-line)
+;; (define-key helm-swoop-map (kbd "C-s") 'helm-next-line)
+;; (define-key helm-multi-swoop-map (kbd "C-r") 'helm-previous-line)
+;; (define-key helm-multi-swoop-map (kbd "C-s") 'helm-next-line)
 
 
 ;; helm-mini
@@ -253,6 +255,7 @@
 (global-set-key (kbd "C-v a") 'helm-apropos)
 (global-set-key (kbd "C-v b") 'helm-descbinds)
 (global-set-key (kbd "C-v c") 'helm-calcul-expression)
+(global-set-key (kbd "C-v f") 'helm-find-files)
 (global-set-key (kbd "C-v g") 'helm-do-ag)
 (global-set-key (kbd "C-v i") 'helm-semantic-or-imenu)
 (global-set-key (kbd "C-v k") 'helm-show-kill-ring)
@@ -273,6 +276,9 @@
 ;; (global-set-key (kbd "C-v h p") 'helm-info-at-point)
 ;; (global-set-key (kbd "C-v h e") 'helm-info-emacs)
 
+(global-set-key (kbd "C-v h c") 'helm-colors)
+(global-set-key (kbd "C-v h p") 'helm-list-emacs-process)
+
 
 ;; prettify descriptions of keys
 (which-key-add-key-based-replacements
@@ -280,6 +286,7 @@
   "C-v a" "apropos"
   "C-v b" "descbinds"
   "C-v c" "calcul-expression"
+  "C-v f" "find-files"
   "C-v g" "do-ag"
   "C-v i" "semantic-or-imenu"
   "C-v k" "show-kill-ring"
@@ -295,6 +302,9 @@
   "C-v w" "surfraw"
   "C-v x" "regexp"
   "C-v y" "yas-complete"
+  "C-v h" "misc"
+  "C-v h c" "colors"
+  "C-v h p" "list-emacs-process"
   )
 
 
@@ -308,9 +318,7 @@
 (global-set-key (kbd "<f1>") 'dx-fun-toggle-selective-display)
 
 
-
-
-;; projectile stuffs
+;; project specific
 (bind-keys :map global-map
            ("C-f a" . helm-projectile-find-file-in-known-projects)
            ("C-f f" . helm-projectile-find-file)
@@ -332,3 +340,101 @@
   "C-f s" "switch-project"
   "C-f z" "multi-swoop"
   )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; buffer centric
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(bind-keys :map global-map
+           ("C-b b" . dx-fun-new-empty-buffer)
+           )
+
+(which-key-add-key-based-replacements
+  "C-b b" "new-empty-buffer"
+  )
+
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;; hydras
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+
+
+(defhydra hydra-controller (global-map "<menu>")
+  ;;  "Controller for nested hydras."
+  ("a" hydra-applications/body "applications" :exit t)
+  ("b" hydra-buffer/body "buffer" :exit t)
+  ("f" hydra-files/body "files" :exit t)
+  ("s" hydra-search-symbol/body "search/symbol" :exit t)
+  ("p" hydra-project/body "project" :exit t)
+  ("g" hydra-git-vc/body "git/version control" :exit t)
+  ("c" hydra-compile/body "compile" :exit t)
+  ("h" hydra-help/body "help/info" :exit q)
+  ("t" nil "exit" :exit t)
+  )
+
+(defhydra hydra-applications ()
+  ("b" helm-bookmarks "bookmarks" :exit t)
+  ("q" nil "exit" :exit t)
+  )
+
+
+(defhydra hydra-buffer ()
+  ("n" dx-fun-new-empty-buffer "new-empty-buffer" :exit t)
+  ("k" dx-fun-volatile-kill-buffer "kill-buffer" :exit t)
+  ("s" save-buffer "save-buffer" :exit t)
+  ("w" kill-ring-save "kill-ring-save" :exit t)
+  ("y" yank "yank" :exit t)
+  ("q" nil "exit" :exit t)
+  )
+
+
+(defhydra hydra-files ()
+  ("b" helm-bookmarks "bookmarks" :exit t)
+  ("f" helm-find-files "find-files" :exit t)
+  ("l" helm-locate "locate" :exit t)
+  ("q" nil "exit" :exit t)
+  )
+
+(defhydra hydra-git-vc ()
+  ("s" magit-status "magit-status" :exit t)
+  ("q" nil "exit" :exit t)
+  )
+
+(defhydra hydra-compile ()
+  ("e" eval-buffer "eval-buffer" :exit t)
+  ("q" nil "exit" :exit t)
+  )
+
+(defhydra hydra-search-symbol ()
+  ("s" helm-swoop "swoop" :exit t)
+  ("q" nil "exit" :exit t)
+  )
+
+(defhydra hydra-project ()
+  ("s" helm-projectile-switch-project "switch-project" :exit t)
+  ("q" nil "exit" :exit t)
+  )
+
+(defhydra hydra-help ()
+  ("t" helm-world-time "world-time" :exit t)
+  ("q" nil "exit" :exit t)
+  )
+
+
+;; allow hydra to take over binding
+(global-set-key (kbd "<menu>") 'hydra-controller/body)
+
+;; provide key-chord for hydra
+(setq key-chord-two-keys-delay 0.02)
+(key-chord-define-global "  " 'hydra-controller/body)
+
+(key-chord-define-global "ss" 'helm-swoop)
+
+
+(let ((inhibit-message t))
+  ;; Suppress spam
+  (key-chord-mode 1)
+  )
+
+

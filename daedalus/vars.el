@@ -40,6 +40,18 @@
   (expand-file-name "functions_hydra.el" dx-dir-core)
   "Additional functions pertaining to hydra.")
 
+(defconst dx-file-name-functions-window
+  (expand-file-name "functions_window.el" dx-dir-core)
+  "Additional functions pertaining to window managment.")
+
+(defconst dx-file-name-functions-buffer
+  (expand-file-name "functions_buffer.el" dx-dir-core)
+  "Additional functions pertaining to buffer control.")
+
+(defconst dx-file-name-functions-files
+  (expand-file-name "functions_files.el" dx-dir-core)
+  "Additional functions pertaining to files.")
+
 (defconst dx-file-name-aliases
   (expand-file-name "aliases.el" dx-dir-core)
   "Aliases for Daedalus.")

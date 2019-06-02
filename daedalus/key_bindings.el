@@ -373,7 +373,7 @@
 (setq hydra-amaranth-warn-message
       (concat "Select an option or quit with "
               (dx-fun-hydra-format-key-string
-               "z"   ;; quit key
+               "q"   ;; quit key
                #'hydra-face-blue)
               "."))
 
@@ -391,37 +391,66 @@
   ("b" hydra-buffer/body "buffer" :exit t)
   ("f" hydra-files/body "files" :exit t)
   ("s" hydra-search-symbol/body "search/symbol" :exit t)
+  ("i" hydra-insertion/body "insertion" :exit t)
   ("p" hydra-project/body "project" :exit t)
-  ("g" hydra-git-vc/body "git/version control" :exit t)
+  ("g" hydra-git-vc/body "git/vc" :exit t)
   ("c" hydra-compile/body "compile" :exit t)
   ("x" hydra-text/body "text" :exit t)
   ("m" hydra-major-mode "mode" :exit t)
   ("w" hydra-window/body "window" :exit t)
   ("t" hydra-toggle/body "toggles" :exit t)
   ("h" hydra-help/body "help/info" :exit t)
-  ("q" hydra-quit/body "quit" :exit t)
+  ("z" hydra-quit/body "quit" :exit t)
   ("<f1>" helm-apropos "apropos" :exit t)
   ("C" hydra-config/body "config" :exit t)
-  ("z" nil :exit t)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-applications
   (:foreign-keys warn :hint nil)
   ("t" (lambda ()  (interactive) (ansi-term "/bin/bash"))
    "ansi-term" :exit t)
-  ("z" nil :exit t)
+  ("c" helm-calcul-expression "calcul-expression" :exit t)
+  ("o" helm-top "top" :exit t)
+  ("u" helm-surfraw "surfraw" :exit t)
+  ("g" helm-google-suggest "google-suggest" :exit t)
+  ("w" wolfram-alpha "wolfram-alpha" :exit t)
+  ("l" helm-list-emacs-process "list-emacs-process" :exit t)
+  ("q" nil :exit t)
   )
 
 
 (defhydra hydra-buffer
   (:foreign-keys warn :hint nil)
-  ("n" dx-fun-new-empty-buffer "new-empty-buffer" :exit t)
-  ("k" dx-fun-volatile-kill-buffer "kill-buffer" :exit t)
+  ("SPC" helm-all-mark-rings "all-mark-rings" :exit t)
+  ("u" undo-tree-visualize "undo-tree-visualize" :exit t)
   ("w" kill-ring-save "kill-ring-save" :exit t)
   ("y" yank "yank" :exit t)
-  ("z" nil :exit t)
+  ("W" dx-fun-copy-whole-buffer-to-clipboard
+   "copy-whole-buffer-to-clipboard" :exit t)
+  ("Y" dx-fun-copy-clipboard-to-whole-buffer
+   "copy-clipboard-to-whole-buffer" :exit t)
+  ("n" dx-fun-new-empty-buffer "new-empty-buffer" :exit t)
+  ("k" dx-fun-volatile-kill-buffer "kill-buffer" :exit t)
+  ("m" dx-fun-switch-to-messages-buffer "switch-to-messages-buffer" :exit t)
+  ("q" nil :exit t)
   )
 
+(defhydra hydra-insertion
+  (:foreign-keys warn :hint nil)
+  ("y" helm-yas-complete "yas-complete" :exit t)
+  ("q" nil :exit t)
+  )
+
+(defhydra hydra-files-yank
+  (:foreign-keys warn :hint nil)
+  ("f" dx-fun-copy-file-name "file-name" :exit t)
+  ("p" dx-fun-copy-file-path "file-path" :exit t)
+  ("d" dx-fun-copy-directory-path "directory-path" :exit t)
+  ("P" dx-fun-copy-file-path-with-line-column
+   "file-path-with-line-column" :exit t)
+  ("q" nil :exit t)
+  )
 
 (defhydra hydra-files
   (:foreign-keys warn :hint nil)
@@ -429,35 +458,55 @@
   ("f" helm-find-files "find-files" :exit t)
   ("l" helm-locate "locate" :exit t)
   ("s" save-buffer "save-buffer" :exit t)
-  ("z" nil :exit t)
+  ("r" dx-fun-rename-current-buffer-file
+   "rename-current-buffer-file" :exit t)
+  ("y" hydra-files-yank/body "yank info" :exit t)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-git-vc
   (:foreign-keys warn :hint nil)
   ("s" magit-status "magit-status" :exit t)
-  ("z" nil :exit t)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-compile
   (:foreign-keys warn :hint nil)
-  ("e" eval-buffer "eval-buffer" :exit t)
-  ("z" nil :exit t)
+  ;; ("e" eval-buffer "eval-buffer" :exit t)
+  ("q" nil :exit t)
   )
+
+(defhydra hydra-search-symbol-do-ag
+  (:foreign-keys warn :hint nil)
+  ("a" helm-do-ag "do-ag" :exit t)
+  ("b" helm-do-ag-buffers "do-ag-buffers" :exit t)
+  ("p" helm-do-ag-project-root "do-ag-project-root" :exit t)
+  ("q" nil :exit t)
+  )
+
 
 (defhydra hydra-search-symbol
   (:foreign-keys warn :hint nil)
   ("s" helm-swoop "swoop" :exit t)
   ("m" helm-multi-swoop-all "multi-swoop-all" :exit t)
   ("b" helm-mini "mini" :exit t)
+  ("i" helm-semantic-or-imenu "semantic-or-imenu" :exit t)
   ("o" helm-occur "occur" :exit t)
-  ("g" helm-do-ag "ag" :exit t)
-  ("z" nil :exit t)
+  ("a" hydra-search-symbol-do-ag/body "ag" :exit t)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-project
   (:foreign-keys warn :hint nil)
+  ("o" helm-projectile-find-other-file "find-other-file")
+  ("p" helm-projectile-ag "ag" :exit t)
+  ("m" helm-multi-swoop-projectile "multi-swoop" :exit t)
+  ("f" helm-projectile-find-file "find-file" :exit t)
+  ("a" helm-projectile-find-file-in-known-projects
+   "find-file-in-known-projects" :exit t)
+  ("b" helm-browse-project :exit t)
   ("s" helm-projectile-switch-project "switch-project" :exit t)
-  ("z" nil :exit t)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-help
@@ -465,19 +514,24 @@
   ("b" helm-descbinds "descbinds" :exit t)
   ("m" helm-man-woman "man-woman" :exit t)
   ("t" helm-world-time "world-time" :exit t)
-  ("z" nil :exit t)
+  ("k" keyfreq-show "keyfreq-show" :exit t)
+  ("r" helm-regexp "regexp" :exit t)
+  ("c" helm-colors "colors" :exit t)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-text
   (:foreign-keys warn :hint nil)
   ("c" dx-fun-input-methods-cycler "input-methods-cycler")
-  ("z" nil :exit t)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-window
   (:foreign-keys warn :hint nil)
   (concat (dx-fun-hydra-format-key-string "0...9" #'hydra-face-amaranth)
           ": switch-to-window-config, "
+          " [_b_]: balance-windows,"
+          " [_m_]: maximize-window,"
           " [_o_]: other-window"
           ".")
   ("0" eyebrowse-switch-to-window-config-0)
@@ -490,22 +544,24 @@
   ("7" eyebrowse-switch-to-window-config-7)
   ("8" eyebrowse-switch-to-window-config-8)
   ("9" eyebrowse-switch-to-window-config-9)
+  ("b" balance-windows)
   ("o" other-window)
-  ("z" nil :exit t)
+  ("m" maximize-window)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-quit
   (:foreign-keys warn :hint nil)
-  ("q" dx-fun-kill-emacs "kill-emacs" :exit t)
-  ("z" nil :exit t)
+  ("Q" dx-fun-kill-emacs "kill-emacs" :exit t)
+  ("q" nil :exit t)
   )
 
 (defhydra hydra-config
   (:foreign-keys warn :hint nil)
   ("c" customize-group "customize-group" :exit t)
-  ("k" (spacemacs/find-dotfile)
-   "key_bindings.el" :exit t)
-  ("z" nil :exit t)
+  ;;("k" (spacemacs/find-dotfile)
+  ;; "key_bindings.el" :exit t)
+  ("q" nil :exit t)
   )
 
 
@@ -522,7 +578,7 @@
 (defhydra hydra-mm-elisp
   (:foreign-keys warn :hint nil)
   ("e" eval-buffer "eval-buffer" :exit t)
-  ("z" nil :exit t)
+  ("q" nil :exit t)
   )
 
 
@@ -543,10 +599,12 @@
 
 (defhydra hydra-toggle
   (:foreign-keys warn :hint nil)
-  ("c" dx-fun-input-methods-cycler "input-methods-cycler")
+  ;; ("c" dx-fun-input-methods-cycler "input-methods-cycler")
   ("s" smartparens-strict-mode
    (dx-make-hydra-toggle "smartparens-strict-mode" smartparens-strict-mode))
-  ("z" nil :exit t)
+  ("n" nlinum-mode
+   (dx-make-hydra-toggle "nlinum-mode" nlinum-mode))
+  ("q" nil :exit t)
   )
 
 ;; allow hydra to take over binding

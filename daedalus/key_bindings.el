@@ -457,10 +457,12 @@
   ("b" helm-bookmarks "bookmarks" :exit t)
   ("f" helm-find-files "find-files" :exit t)
   ("l" helm-locate "locate" :exit t)
+  ("y" hydra-files-yank/body "yank info" :exit t)
   ("s" save-buffer "save-buffer" :exit t)
   ("r" dx-fun-rename-current-buffer-file
    "rename-current-buffer-file" :exit t)
-  ("y" hydra-files-yank/body "yank info" :exit t)
+  ("d" dx-fun-delete-current-buffer-file
+   "delete-current-buffer-file" :exit t)
   ("q" nil :exit t)
   )
 

@@ -98,6 +98,26 @@ initialized with the current directory instead of filename."
                 ((memq key '(?\a ?\e)) (keyboard-quit))))))))
 
 
+;; from magnars
+(defun dx-fun-delete-current-buffer-file ()
+  "Removes file connected to current buffer and kills buffer."
+  (interactive)
+  (let ((filename (buffer-file-name))
+        (buffer (current-buffer))
+        (name (buffer-name)))
+    (if (not (and filename (file-exists-p filename)))
+        (ido-kill-buffer)
+      (if (yes-or-no-p
+           (format "Are you sure you want to delete this file: '%s'?" name))
+          (progn
+            (delete-file filename t)
+            (kill-buffer buffer)
+            (when (projectile-project-p)
+              (call-interactively #'projectile-invalidate-cache))
+            (message "File deleted: '%s'" filename))
+        (message "Canceled: File deletion")))))
+
+
 (provide 'dx-functions-buffer)
 
 ;;

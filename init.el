@@ -60,7 +60,7 @@
 (load dx-file-name-functions-window)
 (load dx-file-name-functions-buffer)
 (load dx-file-name-functions-files)
-
+(load dx-file-name-functions-cpp-mode)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Add minor mode                                                            ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

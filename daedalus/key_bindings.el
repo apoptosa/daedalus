@@ -580,6 +580,7 @@
 (defhydra hydra-mm-elisp
   (:foreign-keys warn :hint nil)
   ("e" eval-buffer "eval-buffer" :exit t)
+  ("r" eval-region "eval-region" :exit t)
   ("q" nil :exit t)
   )
 

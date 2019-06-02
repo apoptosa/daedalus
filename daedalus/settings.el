@@ -554,6 +554,12 @@
                                   helm-source-bookmarks
                                   helm-source-buffer-not-found))
 
+;; correct size for headers in helm
+(set-face-attribute 'helm-source-header nil :height 1.0)
+(set-face-attribute 'helm-source-header nil :foreground "white")
+(set-face-attribute 'helm-source-header nil :background "midnight blue")
+
+
 ;; for top
 (helm-top-poll-mode 1)
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;

@@ -52,6 +52,10 @@
   (expand-file-name "functions_files.el" dx-dir-core)
   "Additional functions pertaining to files.")
 
+(defconst dx-file-name-functions-cpp-mode
+  (expand-file-name "functions_cpp_mode.el" dx-dir-core)
+  "Additional functions pertaining to cpp-mode.")
+
 (defconst dx-file-name-aliases
   (expand-file-name "aliases.el" dx-dir-core)
   "Aliases for Daedalus.")

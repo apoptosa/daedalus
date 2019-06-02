@@ -37,10 +37,14 @@
   "Central store of Daedalus variables.")
 
 (message "Daedalus: Loading variables")
-(load dx-file-name-vars)
+(let ((inhibit-message t))
+  (load dx-file-name-vars)
+  )
 
 (message "Daedalus: Loading variables [sensitive]")
-(load dx-file-name-vars-sensitive)
+(let ((inhibit-message t))
+  (load dx-file-name-vars-sensitive)
+  )
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Fire up the core                                                          ;;
@@ -48,6 +52,12 @@
 
 (message "Daedalus: Loading core")
 (load dx-file-name-core)
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;;  Provide additional functionality                                          ;;
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(message "Daedalus: Loading core")
+(load dx-file-name-functions-hydra)
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Add minor mode                                                            ;;
@@ -89,3 +99,4 @@
 (setq debug-on-quit nil)
 
 
+(put 'list-timers 'disabled nil)

@@ -133,9 +133,8 @@
 
     wolfram
 
-
-    key-chord
-    key-seq
+    ;; key-binding stuffs
+    general
 
     hydra
     ))
@@ -264,12 +263,10 @@
 
 (require 'wolfram)
 
-(require 'key-chord)
-(require 'key-seq)
+(require 'general)
 
 
 (require 'hydra)
-
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; Provide required functions

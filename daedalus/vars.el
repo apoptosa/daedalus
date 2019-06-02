@@ -36,6 +36,10 @@
   (expand-file-name "core.el" dx-dir-core)
   "The Daedalus core.")
 
+(defconst dx-file-name-functions-hydra
+  (expand-file-name "functions_hydra.el" dx-dir-core)
+  "Additional functions pertaining to hydra.")
+
 (defconst dx-file-name-aliases
   (expand-file-name "aliases.el" dx-dir-core)
   "Aliases for Daedalus.")

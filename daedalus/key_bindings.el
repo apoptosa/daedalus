@@ -65,7 +65,7 @@
 (global-set-key (kbd "C-x k") 'dx-fun-volatile-kill-buffer)
 
 (global-set-key (kbd "C-.") 'highlight-symbol-next)
-(global-set-key (kbd "C-,") 'highlight-symbol-previous)
+(global-set-key (kbd "C-,") 'highlight-symbol-prev)
 
 
 ;; Key bindings for multiple cursors.
@@ -195,6 +195,8 @@
            ("C-c C-w" . nil)
            )
 
+;; uniformise
+(bind-keys :map help-mode-map ("z" . quit-window))
 
 ;; prettify descriptions of keys
 ;; (which-key-add-key-based-replacements
@@ -368,91 +370,199 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hydras
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq hydra-amaranth-warn-message
+      (concat "Select an option or quit with "
+              (dx-fun-hydra-format-key-string
+               "z"   ;; quit key
+               #'hydra-face-blue)
+              "."))
 
 
-(defhydra hydra-controller (global-map "<menu>")
+(defhydra hydra-controller
+  (:foreign-keys warn :hint nil)
+  ;; "
+  ;; [_a_] applications
+  ;; "
   ;;  "Controller for nested hydras."
-  ("a" hydra-applications/body "applications" :exit t)
+  ("<menu>" helm-M-x :exit t)
+  ("SPC" helm-swoop :exit t)
+  ("<tab>" helm-mini :exit t)
+  ("r" hydra-applications/body "run/applications" :exit t)
   ("b" hydra-buffer/body "buffer" :exit t)
   ("f" hydra-files/body "files" :exit t)
   ("s" hydra-search-symbol/body "search/symbol" :exit t)
   ("p" hydra-project/body "project" :exit t)
   ("g" hydra-git-vc/body "git/version control" :exit t)
   ("c" hydra-compile/body "compile" :exit t)
+  ("x" hydra-text/body "text" :exit t)
+  ("m" hydra-major-mode "mode" :exit t)
   ("w" hydra-window/body "window" :exit t)
-  ("h" hydra-help/body "help/info" :exit q)
-  ("<f1>" helm-apropos "apropos" :exit q)
-  ("q" nil "exit" :exit t)
+  ("t" hydra-toggle/body "toggles" :exit t)
+  ("h" hydra-help/body "help/info" :exit t)
+  ("q" hydra-quit/body "quit" :exit t)
+  ("<f1>" helm-apropos "apropos" :exit t)
+  ("C" hydra-config/body "config" :exit t)
+  ("z" nil :exit t)
   )
 
-(defhydra hydra-applications ()
-  ("b" helm-bookmarks "bookmarks" :exit t)
-  ("q" nil "exit" :exit t)
+(defhydra hydra-applications
+  (:foreign-keys warn :hint nil)
+  ("t" (lambda ()  (interactive) (ansi-term "/bin/bash"))
+   "ansi-term" :exit t)
+  ("z" nil :exit t)
   )
 
 
-(defhydra hydra-buffer ()
+(defhydra hydra-buffer
+  (:foreign-keys warn :hint nil)
   ("n" dx-fun-new-empty-buffer "new-empty-buffer" :exit t)
   ("k" dx-fun-volatile-kill-buffer "kill-buffer" :exit t)
-  ("s" save-buffer "save-buffer" :exit t)
   ("w" kill-ring-save "kill-ring-save" :exit t)
   ("y" yank "yank" :exit t)
-  ("q" nil "exit" :exit t)
+  ("z" nil :exit t)
   )
 
 
-(defhydra hydra-files ()
+(defhydra hydra-files
+  (:foreign-keys warn :hint nil)
   ("b" helm-bookmarks "bookmarks" :exit t)
   ("f" helm-find-files "find-files" :exit t)
   ("l" helm-locate "locate" :exit t)
-  ("q" nil "exit" :exit t)
+  ("s" save-buffer "save-buffer" :exit t)
+  ("z" nil :exit t)
   )
 
-(defhydra hydra-git-vc ()
+(defhydra hydra-git-vc
+  (:foreign-keys warn :hint nil)
   ("s" magit-status "magit-status" :exit t)
-  ("q" nil "exit" :exit t)
+  ("z" nil :exit t)
   )
 
-(defhydra hydra-compile ()
+(defhydra hydra-compile
+  (:foreign-keys warn :hint nil)
   ("e" eval-buffer "eval-buffer" :exit t)
-  ("q" nil "exit" :exit t)
+  ("z" nil :exit t)
   )
 
-(defhydra hydra-search-symbol ()
+(defhydra hydra-search-symbol
+  (:foreign-keys warn :hint nil)
   ("s" helm-swoop "swoop" :exit t)
-  ("q" nil "exit" :exit t)
+  ("m" helm-multi-swoop-all "multi-swoop-all" :exit t)
+  ("b" helm-mini "mini" :exit t)
+  ("o" helm-occur "occur" :exit t)
+  ("g" helm-do-ag "ag" :exit t)
+  ("z" nil :exit t)
   )
 
-(defhydra hydra-project ()
+(defhydra hydra-project
+  (:foreign-keys warn :hint nil)
   ("s" helm-projectile-switch-project "switch-project" :exit t)
-  ("q" nil "exit" :exit t)
+  ("z" nil :exit t)
   )
 
-(defhydra hydra-help ()
+(defhydra hydra-help
+  (:foreign-keys warn :hint nil)
+  ("b" helm-descbinds "descbinds" :exit t)
+  ("m" helm-man-woman "man-woman" :exit t)
   ("t" helm-world-time "world-time" :exit t)
-  ("q" nil "exit" :exit t)
+  ("z" nil :exit t)
   )
 
-(defhydra hydra-window ()
-  ;; ("0" eyebrowse-switch-to-window-config-0 "0-1")
-  ;; ("1" eyebrowse-switch-to-window-config-1 "0-1")
-  ("q" nil "exit" :exit t)
+(defhydra hydra-text
+  (:foreign-keys warn :hint nil)
+  ("c" dx-fun-input-methods-cycler "input-methods-cycler")
+  ("z" nil :exit t)
   )
 
+(defhydra hydra-window
+  (:foreign-keys warn :hint nil)
+  (concat (dx-fun-hydra-format-key-string "0...9" #'hydra-face-amaranth)
+          ": switch-to-window-config, "
+          " [_o_]: other-window"
+          ".")
+  ("0" eyebrowse-switch-to-window-config-0)
+  ("1" eyebrowse-switch-to-window-config-1)
+  ("2" eyebrowse-switch-to-window-config-2)
+  ("3" eyebrowse-switch-to-window-config-3)
+  ("4" eyebrowse-switch-to-window-config-4)
+  ("5" eyebrowse-switch-to-window-config-5)
+  ("6" eyebrowse-switch-to-window-config-6)
+  ("7" eyebrowse-switch-to-window-config-7)
+  ("8" eyebrowse-switch-to-window-config-8)
+  ("9" eyebrowse-switch-to-window-config-9)
+  ("o" other-window)
+  ("z" nil :exit t)
+  )
+
+(defhydra hydra-quit
+  (:foreign-keys warn :hint nil)
+  ("q" dx-fun-kill-emacs "kill-emacs" :exit t)
+  ("z" nil :exit t)
+  )
+
+(defhydra hydra-config
+  (:foreign-keys warn :hint nil)
+  ("c" customize-group "customize-group" :exit t)
+  ("k" (spacemacs/find-dotfile)
+   "key_bindings.el" :exit t)
+  ("z" nil :exit t)
+  )
+
+
+;; major mode Hydras
+;; (pretty-hydra-define hydra-mm-elisp
+;;   (:hint nil :color amaranth :quit-key "z" :title nil)
+;;   ("Basic"
+;;    (("e" eval-buffer "eval-buffer" :toggle nil :exit t)
+;;     ("w" whitespace-mode "whitespace" :toggle t)
+;;     )
+;;    )
+;;   )
+
+(defhydra hydra-mm-elisp
+  (:foreign-keys warn :hint nil)
+  ("e" eval-buffer "eval-buffer" :exit t)
+  ("z" nil :exit t)
+  )
+
+
+
+(defun hydra-major-mode ()
+  (interactive)
+  (cl-case major-mode
+    (emacs-lisp-mode
+     (hydra-mm-elisp/body))
+    ;; (c-mode
+    ;;  (hydra-mm-c/body))
+    ;; (org-mode
+    ;;  (hydra-mm-org/body))
+    (t
+     (error "Hydra for %S not supported" major-mode))))
+
+
+
+(defhydra hydra-toggle
+  (:foreign-keys warn :hint nil)
+  ("c" dx-fun-input-methods-cycler "input-methods-cycler")
+  ("s" smartparens-strict-mode
+   (dx-make-hydra-toggle "smartparens-strict-mode" smartparens-strict-mode))
+  ("z" nil :exit t)
+  )
 
 ;; allow hydra to take over binding
-(global-set-key (kbd "<menu>") 'hydra-controller/body)
+;; (global-set-key (kbd "<menu>") 'hydra-controller/body)
 
-;; provide key-chord for hydra
-(setq key-chord-two-keys-delay 0.01)
-(key-chord-define-global "  " 'hydra-controller/body)
 
-;; (key-chord-define-global "ss" 'helm-swoop)
-(key-chord-define-global "bb" 'hydra-buffer/body)
+;; shortcut for hydra-controller to prefix keys
 
-(let ((inhibit-message t))
-  ;; Suppress spam
-  (key-chord-mode 1)
-  )
+(general-define-key
+ :state 'normal
+ "<menu>" 'hydra-controller/body
+ "C-r" 'hydra-applications/body
+ "C-b" 'hydra-buffer/body
+ "C-f" 'hydra-files/body
+ "C-t" 'hydra-toggle/body
+ ;; "C-m" 'major-mode-hydra
+ )
 
 

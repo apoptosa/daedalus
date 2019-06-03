@@ -1,5 +1,6 @@
+## -*- coding: utf-8;mode: org;  -*-
 #+title: daedalus_info
-#+options: toc:t 
+#+options: toc:t
 
 
 * General key-bindings [kbd]
@@ -115,15 +116,29 @@ fix alphabetical ordering for which-key
 
 ;; Push describe commands to deeper prefix
 
+* TODO:
+** Migrate to use-package
+https://github.com/jwiegley/use-package
+
+** C/C++ development
+https://tuhdo.github.io/c-ide.html
+
+
+** Previously constructed packages
+
+https://github.com/bbatsov/prelude
+
+https://github.com/syl20bnr/spacemacs/tree/develop
+
+https://github.com/hlissner/doom-emacs
+
+** Nice configurations to check out for tricks
+https://github.com/dakrone/dakrone-dotfiles/blob/master/emacs.org
+https://github.com/danielmai/.emacs.d
+https://github.com/kaushalmodi/.emacs.d/
+https://writequit.org/org/settings.html
+https://wolfecub.github.io/dotfiles
+
 * Learn:
-Magit
 Projectile
 Dired
-
-* Generic information
-  ** Git:
-  *** Initialise new repo:
-  In empty folder: git init
-  *** Change default user / email at repo level:
-  git config user.name "John Doe"
-  git config user.email "john@doe.org"

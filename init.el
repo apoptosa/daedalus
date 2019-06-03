@@ -1,10 +1,5 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;;  Initialise Daedalus                                                       ;;
-;;                                                                            ;;
-;;  Inspired by:                                                              ;;
-;;   https://github.com/danielmai/.emacs.d                                    ;;
-;;   https://github.com/dakrone/dakrone-dotfiles/blob/master/emacs.org        ;;
-;;   doom-emacs                                                               ;;
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Debug mode on - turn off once finished loading

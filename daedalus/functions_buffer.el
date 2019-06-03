@@ -9,19 +9,19 @@
 ;; From spacemacs  -------------------------------------------------------------
 
 ;; http://stackoverflow.com/a/10216338/4869
-(defun dx-fun-copy-whole-buffer-to-clipboard ()
+(defun daedalus/fun/buffer/copy-whole-buffer-to-clipboard ()
   "Copy entire buffer to clipboard"
   (interactive)
   (clipboard-kill-ring-save (point-min) (point-max)))
 
-(defun dx-fun-copy-clipboard-to-whole-buffer ()
+(defun daedalus/fun/buffer/copy-clipboard-to-whole-buffer ()
   "Copy clipboard and replace buffer"
   (interactive)
   (delete-region (point-min) (point-max))
   (clipboard-yank)
   (deactivate-mark))
 
-(defun dx-fun-switch-to-messages-buffer (&optional arg)
+(defun daedalus/fun/buffer/switch-buffer-to-messages (&optional arg)
   "Switch to the `*Messages*' buffer.
 if prefix argument ARG is given, switch to it in an other, possibly new window."
   (interactive "P")
@@ -30,6 +30,19 @@ if prefix argument ARG is given, switch to it in an other, possibly new window."
     (if arg
         (switch-to-buffer-other-window (current-buffer))
       (switch-to-buffer (current-buffer)))))
+
+(defun daedalus/fun/buffer/switch-buffer-to-scratch (&optional arg)
+  "Switch to the `*scratch*' buffer, creating it first if needed.
+if prefix argument ARG is given, switch to it in an other, possibly new window."
+  (interactive "P")
+  (let ((exists (get-buffer "*scratch*")))
+    (if arg
+        (switch-to-buffer-other-window (get-buffer-create "*scratch*"))
+      (switch-to-buffer (get-buffer-create "*scratch*")))
+    (when (and (not exists)
+               (not (eq major-mode emacs-lisp-mode))
+               (fboundp emacs-lisp-mode))
+      (funcall emacs-lisp-mode))))
 
 ;;------------------------------------------------------------------------------
 

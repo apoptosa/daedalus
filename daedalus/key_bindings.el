@@ -421,6 +421,13 @@
   ("q" nil :exit t)
   )
 
+(defhydra hydra-buffer-switch
+  (:foreign-keys warn :hint nil)
+  ("m" daedalus/fun/buffer/switch-buffer-to-messages "messages" :exit t)
+  ("s" daedalus/fun/buffer/switch-buffer-to-scratch "scratch" :exit t)
+  ("q" nil :exit t)
+  )
+
 
 (defhydra hydra-buffer
   (:foreign-keys warn :hint nil)
@@ -428,13 +435,15 @@
   ("u" undo-tree-visualize "undo-tree-visualize" :exit t)
   ("w" kill-ring-save "kill-ring-save" :exit t)
   ("y" yank "yank" :exit t)
-  ("W" dx-fun-copy-whole-buffer-to-clipboard
+  ("W" daedalus/fun/buffer/copy-whole-buffer-to-clipboard
    "copy-whole-buffer-to-clipboard" :exit t)
-  ("Y" dx-fun-copy-clipboard-to-whole-buffer
+  ("Y" daedalus/fun/buffer/copy-clipboard-to-whole-buffer
    "copy-clipboard-to-whole-buffer" :exit t)
   ("n" dx-fun-new-empty-buffer "new-empty-buffer" :exit t)
   ("k" dx-fun-volatile-kill-buffer "kill-buffer" :exit t)
-  ("m" dx-fun-switch-to-messages-buffer "switch-to-messages-buffer" :exit t)
+  ("s" hydra-buffer-switch/body
+   (propertize "+switch-buffer" 'face #'hydra-face-teal)
+   :exit t)
   ("q" nil :exit t)
   )
 
@@ -541,6 +550,10 @@
           " [_b_]: balance-windows,"
           " [_m_]: maximize-window,"
           " [_o_]: other-window"
+          " [_s_]: window-split-single-column"
+          " [_d_]: window-split-double-column"
+          " [_t_]: window-split-triple-column"
+          " [_g_]: window-split-grid"
           ".")
   ("0" eyebrowse-switch-to-window-config-0)
   ("1" eyebrowse-switch-to-window-config-1)
@@ -555,12 +568,16 @@
   ("b" balance-windows)
   ("o" other-window)
   ("m" maximize-window)
+  ("s" spacemacs/window-split-single-column)
+  ("d" spacemacs/window-split-double-columns)
+  ("t" spacemacs/window-split-triple-columns)
+  ("g" spacemacs/window-split-grid)
   ("q" nil :exit t)
   )
 
 (defhydra hydra-quit
   (:foreign-keys warn :hint nil)
-  ("Q" dx-fun-kill-emacs "kill-emacs" :exit t)
+  ("z" dx-fun-kill-emacs "kill-emacs" :exit t)
   ("q" nil :exit t)
   )
 
@@ -596,6 +613,10 @@
   (interactive)
   (cl-case major-mode
     (emacs-lisp-mode
+     (hydra-mm-elisp/body))
+    (lisp-mode                         ;; fall-back
+     (hydra-mm-elisp/body))
+    (lisp-interaction-mode             ;; fall-back
      (hydra-mm-elisp/body))
     ;; (c-mode
     ;;  (hydra-mm-c/body))

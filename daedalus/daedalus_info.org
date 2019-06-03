@@ -1,4 +1,6 @@
-Daedalus info:
+#+title: daedalus_info
+#+options: toc:t 
+
 
 * General key-bindings [kbd]
   ** [<f1>] selective-display

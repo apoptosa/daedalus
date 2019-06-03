@@ -326,16 +326,20 @@
 
 
 (defun dx-fun-kill-emacs ()
-  "Exit unconditionally after being prompted for save."
+  "Exit unconditionally."
   (interactive)
-  (save-some-buffers nil t)
+  ;;(save-some-buffers nil t)
   (kill-emacs))
 
 (defun dx-fun-volatile-kill-buffer ()
   "Kill current buffer unconditionally."
+  ;; (interactive)
+  ;; (let ((buffer-modified-p nil))
+  ;;   (kill-buffer (current-buffer)))
   (interactive)
-  (let ((buffer-modified-p nil))
-    (kill-buffer (current-buffer))))
+  (set-buffer-modified-p nil)
+  (kill-this-buffer)
+  )
 
 ;; dired related
 (defun dx-xah-open-in-external-app (&optional @fname)

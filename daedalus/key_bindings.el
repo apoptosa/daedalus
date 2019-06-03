@@ -370,6 +370,8 @@
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ;; hydras
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+(setq hydra-hint-display-type #'message)
+
 (setq hydra-amaranth-warn-message
       (concat "Select an option or quit with "
               (dx-fun-hydra-format-key-string
@@ -457,7 +459,9 @@
   ("b" helm-bookmarks "bookmarks" :exit t)
   ("f" helm-find-files "find-files" :exit t)
   ("l" helm-locate "locate" :exit t)
-  ("y" hydra-files-yank/body "yank info" :exit t)
+  ("y" hydra-files-yank/body
+   (propertize "+yank" 'face #'hydra-face-teal)
+   :exit t)
   ("s" save-buffer "save-buffer" :exit t)
   ("r" dx-fun-rename-current-buffer-file
    "rename-current-buffer-file" :exit t)
@@ -494,7 +498,9 @@
   ("b" helm-mini "mini" :exit t)
   ("i" helm-semantic-or-imenu "semantic-or-imenu" :exit t)
   ("o" helm-occur "occur" :exit t)
-  ("a" hydra-search-symbol-do-ag/body "ag" :exit t)
+  ("a" hydra-search-symbol-do-ag/body
+   (propertize "+ag" 'face #'hydra-face-teal)
+   :exit t)
   ("q" nil :exit t)
   )
 
